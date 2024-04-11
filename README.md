@@ -23,4 +23,4 @@ $ python3 ./aggressor-aggregator.py --file favourites.txt
 ## Credits
 
 - Paul L. ([@am0nsec](https://twitter.com/am0nsec)) for `loader.cna` ([_Cobalt Strike Aggressor Scripts-Ception_](https://amonsec.net/posts/2020/07/00000004/))
-- [@bottersnike](https://github.com/Bottersnike) for QA and testing
+- [@bottersnike](https://github.com/Bottersnike) and [@javalogicuser](https://github.com/javalogicuser) for QA and testing
