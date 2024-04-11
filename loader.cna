@@ -1,0 +1,52 @@
+# Java packages
+import aggressor.windows.ScriptManager;
+import aggressor.AggressorClient;
+import aggressor.Prefs;
+import cortana.Cortana;
+import java.util.List;
+
+# $1 - array of scripts to load 
+sub load_aggressor_script  {
+        this('$script $client $cortana $prefs $list');
+        $script = [new ScriptManager: getAggressorClient()];
+        $client = [$script client];
+        $cortana = [$client engine];
+
+        # Get preferences
+        $prefs = [Prefs getPreferences];
+        $list = [$prefs getList: 'cortana.scripts'];
+        
+        # Load/Reload scripts
+        foreach $value ($1) {
+                println("\c2[+]\c0 Loading: " . $value);
+
+                # Unload script if alread loaded
+               if ([[$cortana scripts] containsKey: $value]) {
+                    [$cortana unloadScript: $value];
+                    [$list remove: $value];
+                }
+
+                # Load script
+                [$cortana loadScript: $value];
+                [$list add: $value];
+        }
+
+        # Refresh UI
+        [$prefs setList: 'cortana.scripts', $list];
+        [$prefs save];
+        [$script refresh];
+}
+
+# Banner
+println('');
+println('Cobalt Strike Aggressor Script Utility for Loading Aggressor Scripts');
+println('Copyright (C) 2020 Paul L. (@am0nsec)');
+println('https://amonsec.net/');
+println('');
+
+# Scripts to load
+@scripts_to_load = @(
+        "C:\\Users\\redacted\\Desktop\\script1.cna",
+        "C:\\Users\\redacted\\Desktop\\script2.cna"
+);
+load_aggressor_script(@scripts_to_load);
